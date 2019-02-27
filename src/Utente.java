@@ -17,6 +17,7 @@ public class Utente implements Serializable{
 	private ArrayList<Categoria> categorieInteresse= new ArrayList<>();
 	private ArrayList<Evento> eventiUtente = new ArrayList<>();
 	private ArrayList<Messaggio> messaggiUtente = new ArrayList<>();
+	private ArrayList <Utente> Utentiamici = new ArrayList<>();
 		
 		
 		public Utente(String _nomeUtente)
@@ -37,11 +38,13 @@ public class Utente implements Serializable{
 		
 		
 		public void inserisciDatiPersonali(ArrayList<Categoria> elencoCategorie){
-			int inserimento= Utility.leggiIntero(0,1, "Vuoi creare l'elenco delle tue categorie preferite? Digita 1 per SI e 0 pre NO");
-			if(inserimento==0){
+			int inserimento= Utility.leggiIntero(0,1, "Vuoi modificare l'elenco delle tue categorie preferite? Digita 1 per SI e 0 pre NO");
 			
+			if(inserimento==0){
+				
 			}
 			else{
+				ArrayList<Categoria> nuoveCategorie= new ArrayList<>();
 				int numCat=0;
 				do{
 					System.out.println("0) Esci");
@@ -51,14 +54,15 @@ public class Utente implements Serializable{
 						System.out.println(DESCRIZIONE + elencoCategorie.get(i).getDescrizione()+"\n");
 					}
 					
-					numCat=Utility.leggiIntero(1, elencoCategorie.size()+1, SCELTACATEGORIA);
+					numCat=Utility.leggiIntero(0, elencoCategorie.size()+1, SCELTACATEGORIA);
 					if(numCat!=0){
 						numCat=numCat-1;
-						categorieInteresse.add(elencoCategorie.get(numCat));
+						nuoveCategorie.add(elencoCategorie.get(numCat));
 						elencoCategorie.remove(numCat);
 					}
 					
 				}while(elencoCategorie.size()>0 && numCat!=0);
+				categorieInteresse=nuoveCategorie;
 			}
 			
 			int inserimento2= Utility.leggiIntero(0,1, "Vuoi inserire la tua fascia di età? Digita 1 per SI e 0 pre NO");
@@ -123,6 +127,16 @@ public class Utente implements Serializable{
 
 		public void setFasciaEtà(ArrayList<Integer> fasciaEtà) {
 			this.fasciaEtà = fasciaEtà;
+		}
+
+
+		public ArrayList<Utente> getUtentiamici() {
+			return Utentiamici;
+		}
+
+
+		public void setUtentiamici(ArrayList<Utente> utentiamici) {
+			Utentiamici = utentiamici;
 		}
 		
 		
