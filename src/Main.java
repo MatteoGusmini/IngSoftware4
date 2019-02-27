@@ -23,8 +23,8 @@ public class Main {
 		final String MSGLOGIN="Inserisci il tuo nome utente per effettuare il login";
 		final String NOMEMENU="GESTIONE Eventi";
 		final String NOMEMENUMSG="GESTIONE Messaggi";
-		final String[] OPZIONIMSG={"Visualizza messaggi", "Elimina messaggi"};
-		final String[] OPZIONI={"Visualizza Categorie Disponibili","Crea un nuovo evento","Visualizza i miei eventi non ancora pubblicati","Pubblica eventi","Visualizza Bacheca","Partecipa a evento","Gestione Messaggi", "Elimina Iscrizione evento", "Elimina evento","Genera evento standard per test"};
+		final String[] OPZIONIMSG={"Visualizza messaggi", "Elimina messaggi","Modifica dati personali"};
+		final String[] OPZIONI={"Visualizza Categorie Disponibili","Crea un nuovo evento","Visualizza i miei eventi non ancora pubblicati","Pubblica eventi","Visualizza Bacheca","Partecipa a evento","Pagina Utente", "Elimina Iscrizione evento", "Elimina evento","Genera evento standard per test"};
 		final String NOME="Nome categoria: ";
 		final String STATO="Stato: ";
 		final String POSTILIBERI="Posti liberi: ";
@@ -54,7 +54,7 @@ public class Main {
 		// Creazione file per il salvataggio dei dati
 		File filebacheca = new File ("Bacheca.txt");
 		File fileutenti = new File ("Utenti.txt");
-				//File fileutentiP = new File("UtentiP.txt");
+		
 		
 		
 		
@@ -62,7 +62,7 @@ public class Main {
 		ArrayList<Categoria> categorie=new ArrayList<>();
 		ListaEventi bacheca = new ListaEventi();
 		ArrayList<Utente> elencoUtenti=new ArrayList<>();
-				//ArrayList<Utente> elencoUtentiPubblicati= new ArrayList<>();
+				
 
 
 		
@@ -80,13 +80,10 @@ public class Main {
 		}else
 			bacheca= (ListaEventi) ServizioFile.caricaSingoloOggetto(filebacheca);
 
-				//if(ServizioFile.esistenzaFile(fileutentiP) == 0) {
-					//ServizioFile.salvaSingoloOggetto(fileutentiP, elencoUtentiPubblicati);
-				//}else
-					//elencoUtentiPubblicati= (ArrayList<Utente>) ServizioFile.caricaSingoloOggetto(fileutentiP);
-
-		
-		
+		// Creazione delle categorie di cui possono essere i vari eventi
+				Partita partita = new Partita();
+				categorie.add(partita);
+			
 		
 		// Messaggio di benvenuto e richiesta nome per login
 		System.out.println(MSGBENVENUTO);
@@ -107,28 +104,16 @@ public class Main {
 			Utente nuovoUtente= new Utente(utente);
 			elencoUtenti.add(nuovoUtente);
 			numUtente=elencoUtenti.size()-1;
+			elencoUtenti.get(numUtente).inserisciDatiPersonali(categorie);
 		}
+		
+		
 		ServizioFile.salvaSingoloOggetto(fileutenti, elencoUtenti);
 
-				/*boolean esistenteP =false;
-				int numUtenteP=0;
-				for(int i=0; i<elencoUtentiPubblicati.size();i++){
-					if (elencoUtentiPubblicati.get(i).getNomeUtente().equalsIgnoreCase(utente)){
-						esistenteP =true;
-						numUtenteP=i;
-					}
-				}
-				// Se non esiste ne creo uno nuovo
-				if (!esistenteP){
-					Utente nuovoUtenteP= new Utente(utente);
-					elencoUtentiPubblicati.add(nuovoUtenteP);
-					numUtenteP=elencoUtentiPubblicati.size()-1;
-				}
-				ServizioFile.salvaSingoloOggetto(fileutentiP, elencoUtentiPubblicati);*/
-	
-		// Creazione delle categorie di cui possono essere i vari eventi
-		Partita partita= new Partita();
-		categorie.add(partita);
+		
+		
+		
+		
 		
 		
 		Menu myMenu= new Menu(NOMEMENU,OPZIONI);
@@ -269,9 +254,7 @@ public class Main {
 											// Pubblicazione evento
 											bacheca.getElencoEventi().add(eventop);
 											elencoUtenti.get(numUtente).getEventiUtente().remove(numEventoPubblicato-1);
-													//elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().add(eventop);
-													//ServizioFile.salvaSingoloOggetto(fileutentiP, elencoUtentiPubblicati);
-
+													
 
 										}
 										else{
@@ -493,25 +476,10 @@ public class Main {
 					}
 					
 					
-					/*if(elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().size()!=0){
-						for(int i=0; i<elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().size();i++){
-							System.out.println(i+1 +")");
-							System.out.println(NOMEEVENTO + elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().get(i).getCategoria().getTitolo().getValore().getValore());
-							System.out.println("Data Ritiro Iscrizione: " + elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().get(i).getCategoria().getDataRitiroIscrizione().getValore().getValore());
-							}
-						int numEliminEventoPubblicato = Utility.leggiIntero(0, elencoUtentiPubblicati.size() + 1, SCELTAELIMINEVENTO);
-
-						if (numEliminEventoPubblicato != 0) {
-							elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().get(numEliminEventoPubblicato -1).setStato("Annullato");
-							elencoUtentiPubblicati.get(numUtenteP).getEventiUtente().remove(numEliminEventoPubblicato - 1);
-						}
-					}else {
-						System.out.println(EVENTIPUBBLICATIVUOTI);
-					}*/
 					break;
 					
 				case 10:
-					// creazione evento con valori predefiniti
+					// creazione evento con valori predefiniti. Utile in fase di testing
 					
 					Evento eventopredef= new Evento(partita,elencoUtenti.get(numUtente));
 					eventopredef.inserisciValoriPredefinitiEvento();

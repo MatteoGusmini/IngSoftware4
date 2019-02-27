@@ -33,6 +33,7 @@ public class Utility
 	private final static String MSG_NO_SCRITTURA = "ATTENZIONE: PROBLEMI CON LA SCRITTURA DEL FILE ";
 	private final static String MSG_NO_CHIUSURA ="ATTENZIONE: PROBLEMI CON LA CHIUSURA DEL FILE ";
 	
+	
 	static Scanner sc =new Scanner(System.in);
 
 	public static String leggiStringa(String msg)
@@ -43,6 +44,17 @@ public class Utility
 			nome = sc.next();
 		}while(nome.length()==0);
 		return nome;
+	}
+	
+	public static ArrayList<Integer> leggiFaciaEtà(String msg)
+	{
+		ArrayList<Integer> eta=new ArrayList<>();
+		int eta1=Utility.leggiIntero(1, 110, "Inserisci estremo inferiore");
+		int eta2=Utility.leggiIntero(eta1, 110, "Inserisci estremo superiore");
+		eta.add(eta1);
+		eta.add(eta2);
+		
+		return eta;
 	}
 	
 	public static String leggiData(String msg)

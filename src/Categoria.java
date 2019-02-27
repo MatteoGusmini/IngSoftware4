@@ -12,7 +12,7 @@ public class Categoria implements Serializable{
 	public static final int INT = 1;
 	public static final int DATE = 2;
 	public static final int ORA = 3;
-	
+	public static final int ETA = 4;	
 	
 	
 	

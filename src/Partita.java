@@ -6,7 +6,7 @@ import MyLib.Utility;
 
 public class Partita extends Categoria {
 	private Campo genere=new Campo("Genere","Indica se i partecipanti sono maschi o femmine",true,STRING);
-	private Campo fasciaEta=new Campo("Fascia di etï¿½","Indica l'etï¿½ massima e minima per partecipare all'evento",true,STRING);
+	private Campo fasciaEta=new Campo("Fascia di età","Indica l'età massima e minima per partecipare all'evento",true,ETA);
 	private ArrayList<Campo> elencoCampi = new ArrayList<>();
 	
 	
@@ -59,8 +59,11 @@ public class Partita extends Categoria {
 	}
     
     public void inserisciValoriPredefiniti(){
+    	ArrayList<Integer> eta = new ArrayList<Integer>();
+    	eta.add(16);
+    	eta.add(45);
     	genere.getValore().setValore("Maschi");
-    	fasciaEta.getValore().setValore("16-50");
+    	fasciaEta.getValore().setEta(eta);
     }
 	
 	// Getters and Setters generati automaticamente

@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -9,8 +10,10 @@ public class Valore implements Serializable{
 	private int tipo;
 	private String testo;
 	private int numero;
+	private ArrayList <Integer> eta= new ArrayList<>();
 	private Date giorno;
 	private Boolean inserito;
+	
 	
 	
 	//Costruttori
@@ -41,6 +44,9 @@ public class Valore implements Serializable{
 		
 		case 3:
 			return testo;
+		
+		case 4:
+			return eta;
 			
 		}
 		return tipo;
@@ -80,6 +86,12 @@ public class Valore implements Serializable{
 
 	public void setInserito(Boolean inserito) {
 		this.inserito = inserito;
+	}
+
+
+	public void setEta(ArrayList<Integer> eta) {
+		this.eta = eta;
+		inserito=true;
 	}
 	
 	

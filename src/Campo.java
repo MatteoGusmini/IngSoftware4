@@ -56,6 +56,11 @@ public class Campo implements Serializable{
 					String ora= Utility.leggiOra("Inserisci " + nome + " (hh:mm)");
 					valore.setValore(ora);
 					break;
+				case 4:
+					ArrayList<Integer>eta=Utility.leggiFaciaEtà("Inserisci"+ nome);
+					valore.setEta(eta);
+					
+					break;	
 				}
 			}
 	
