@@ -45,23 +45,24 @@ public class Utente implements Serializable{
 			}
 			else{
 				ArrayList<Categoria> nuoveCategorie= new ArrayList<>();
+				ArrayList<Categoria> sceltaCategorie= new ArrayList<>();
+				sceltaCategorie=elencoCategorie;
 				int numCat=0;
 				do{
 					System.out.println("0) Esci");
-					for (int i=0; i<elencoCategorie.size();i++){
+					for (int i=0; i<sceltaCategorie.size();i++){
 						System.out.println(i+1+")");
-						System.out.println(NOME + elencoCategorie.get(i).getNome());
-						System.out.println(DESCRIZIONE + elencoCategorie.get(i).getDescrizione()+"\n");
+						System.out.println(NOME + sceltaCategorie.get(i).getNome());
+						System.out.println(DESCRIZIONE + sceltaCategorie.get(i).getDescrizione()+"\n");
 					}
 					
-					numCat=Utility.leggiIntero(0, elencoCategorie.size()+1, SCELTACATEGORIA);
+					numCat=Utility.leggiIntero(0, sceltaCategorie.size()+1, SCELTACATEGORIA);
 					if(numCat!=0){
-						numCat=numCat-1;
-						nuoveCategorie.add(elencoCategorie.get(numCat));
-						elencoCategorie.remove(numCat);
+						nuoveCategorie.add(sceltaCategorie.get(numCat-1));
+						sceltaCategorie.remove(numCat-1);
 					}
 					
-				}while(elencoCategorie.size()>0 && numCat!=0);
+				}while(sceltaCategorie.size()>0 && numCat!=0);
 				categorieInteresse=nuoveCategorie;
 			}
 			
