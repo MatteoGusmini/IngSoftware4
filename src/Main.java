@@ -183,9 +183,7 @@ public class Main {
 				Evento evento= new Evento(partita,elencoUtenti.get(numUtente));
 				evento.inserisciDettagliEvento();
 
-				if(!evento.getCategoria().getDataRitiroIscrizione().getValore().getInserito()){
-					evento.getCategoria().setDataRitiroIscrizione(evento.getCategoria().getTermineIscrizione());
-				}
+				
 				evento.getElencoIscritti().add(elencoUtenti.get(numUtente));
 				elencoUtenti.get(numUtente).getEventiUtente().add(evento);
 				System.out.println(MSGEVENTO);
@@ -248,6 +246,9 @@ public class Main {
 								eventop.isValido();
 							/*Controllo validita evento*/
 									if(eventop.getvalidita() == true){
+										if(!eventop.getCategoria().getDataRitiroIscrizione().getValore().getInserito()){
+											eventop.getCategoria().setDataRitiroIscrizione(eventop.getCategoria().getTermineIscrizione());
+										}
 										if(eventop.controlloDate()){
 											System.out.println(VALIDITAPUBBLICAZIONE);
 
